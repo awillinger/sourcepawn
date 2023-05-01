@@ -2,9 +2,15 @@
 import os
 
 library = Root.StaticLibrary(builder, 'z')
-library.compiler.includes += [
+
+compiler = library.compiler
+compiler.includes += [
   os.path.join(builder.currentSourcePath, '..', 'third_party'),
 ]
+
+if compiler.family == 'clang' and compiler.version >= '15.0':
+  compiler.cflags += ['-Wno-deprecated-non-prototype']
+
 library.sources += [
   'adler32.c',
   'compress.c',
