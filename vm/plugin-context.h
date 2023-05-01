@@ -49,6 +49,7 @@ class PluginContext : public BasePluginContext
   uint32_t GetPubVarsNum() override;
   int LocalToPhysAddr(cell_t local_addr, cell_t** phys_addr) override;
   int LocalToString(cell_t local_addr, char** addr) override;
+  int PhysAddrToLocal(cell_t local_addr, size_t maxbytes, const void* source, size_t* size);
   int StringToLocal(cell_t local_addr, size_t chars, const char* source) override;
   int StringToLocalUTF8(cell_t local_addr, size_t maxbytes, const char* source, size_t* wrtnbytes) override;
   IPluginFunction* GetFunctionByName(const char* public_name) override;

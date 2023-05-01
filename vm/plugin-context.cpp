@@ -254,6 +254,31 @@ PluginContext::LocalToString(cell_t local_addr, char** addr)
 }
 
 int
+PluginContext::PhysAddrToLocal(cell_t local_addr, size_t maxbytes, const void* source, size_t* size)
+{
+  if (((local_addr >= hp_) && (local_addr < sp_)) ||
+      (local_addr < 0) || ((ucell_t)local_addr >= mem_size_))
+  {
+    return SP_ERROR_INVALID_ADDRESS;
+  }
+
+  if (maxbytes == 0)
+    return SP_ERROR_NONE;
+
+  uint8_t* dest = memory_ + local_addr;
+
+  size_t len = *size;
+  if (len > maxbytes)
+    len = maxbytes;
+
+  memmove(dest, source, len);
+
+  *size = len;
+
+  return SP_ERROR_NONE;
+}
+
+int
 PluginContext::StringToLocal(cell_t local_addr, size_t bytes, const char* source)
 {
   char* dest;

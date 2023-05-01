@@ -860,6 +860,16 @@ class IPluginContext
      */
     virtual int LocalToString(cell_t local_addr, char** addr) = 0;
 
+     /**
+     * @brief Converts a physical pointer to binary data to a local address.
+     *
+     * @param local_addr  Local address in plugin.
+     * @param maxbytes      Number of bytes to write.
+     * @param source    Source data to copy.
+     * @param size    Length of the data.
+     */
+    virtual int PhysAddrToLocal(cell_t local_addr, size_t maxbytes, const void* source, size_t* size) = 0;
+
     /**
      * @brief Converts a physical string to a local address.
      *
